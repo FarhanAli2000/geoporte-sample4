@@ -749,7 +749,7 @@ p{margin:0}
   function startTrails(){const cv=$('#trails'),c=cv.getContext('2d');let w,h,run=true;
     const rs=()=>{const d=Math.min(devicePixelRatio||1,2);w=cv.clientWidth;h=cv.clientHeight;cv.width=w*d;cv.height=h*d;c.setTransform(d,0,0,d,0,0)};rs();addEventListener('resize',rs);
     const lanes=[[.15,.95,.55,.62,1.05,.42],[.05,1.02,.5,.68,1.1,.5],[.3,.98,.62,.58,1.05,.36],[-.05,.9,.45,.7,1.08,.58]];
-    const pts=[];const spawn=()=>{const l=lanes[Math.floor(Math.random()*lanes.length)];pts.push({l,t:0,s:.0022+Math.random()*.003,len:.05+Math.random()*.07,c:(r=>r<.55?'246,162,36':r<.85?'90,163,232':'255,240,220')(Math.random()),wd:1+Math.random()*1.6})};
+    const pts=[];const spawn=()=>{const l=lanes[Math.floor(Math.random()*lanes.length)];pts.push({l,t:0,s:.0022+Math.random()*.003,len:.05+Math.random()*.07,c:Math.random()<.6?'246,162,36':'90,163,232',wd:1+Math.random()*1.6})};
     const P=(l,t)=>{const x0=l[0]*w,y0=l[1]*h,cx=l[2]*w,cy=l[3]*h,x1=l[4]*w,y1=l[5]*h;const u=1-t;return[u*u*x0+2*u*t*cx+t*t*x1,u*u*y0+2*u*t*cy+t*t*y1]};
     new IntersectionObserver(es=>es.forEach(e=>{const was=run;run=e.isIntersecting;if(run&&!was)requestAnimationFrame(loop)})).observe(cv);
     function loop(){c.clearRect(0,0,w,h);if(Math.random()<.16&&pts.length<46)spawn();
